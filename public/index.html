@@ -1,350 +1,656 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Crypto Recovery Report</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .animate-fadeIn {
-      animation: fadeIn 0.4s ease-in-out;
-    }
-  </style>
-</head>
-<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen flex items-center justify-center p-4">
-  <div class="bg-white shadow-2xl rounded-xl w-full max-w-4xl p-6 sm:p-10 relative">
-
-    <!-- Header -->
-    <header class="mb-8 text-center">
-      <h1 class="text-4xl font-bold text-gray-800">Crypto Recovery Form</h1>
-      <p class="text-sm text-gray-500 mt-2">Please complete the steps below to file your incident report.</p>
-    </header>
-
-    <!-- Progress Bar -->
-    <div class="flex items-center justify-between mb-8">
-      <div class="w-full bg-gray-200 h-2 rounded-full">
-        <div id="progressBar" class="h-2 bg-blue-600 rounded-full transition-all duration-300 w-1/7"></div>
-      </div>
-      <span id="progressText" class="ml-4 text-sm text-gray-600 font-medium whitespace-nowrap">
-        Step 1 of 7
-      </span>
-    </div>
-
-    <!-- Form -->
-    <form id="recoveryForm" class="space-y-6" enctype="multipart/form-data">
-
-
- <!-- Step 1: Personal Info -->
-      <div class="form-step" data-step="1">
-        <p class="text-sm text-gray-500 mb-4">
-          Let’s start with your contact details. Fields marked
-          <span class="text-red-500">*</span> are required.
-        </p>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Full Name <span class="text-red-500">*</span>
-          </label>
-          <input type="text" name="name" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-        </div>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Email Address <span class="text-red-500">*</span>
-          </label>
-          <input type="email" name="email" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-        </div>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Phone Number
-          </label>
-          <input type="tel" name="phone" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-        </div>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Country <span class="text-red-500">*</span>
-          </label>
-          <input type="text" name="country" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-        </div>
-      </div>
-
-      <!-- Step 2: Incident Overview -->
-      <div class="form-step hidden" data-step="2">
-        <p class="text-sm text-gray-500 mb-4">
-          Tell us the high-level incident details so we can prioritize your case.
-        </p>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Date of Incident <span class="text-red-500">*</span>
-          </label>
-          <input type="date" name="incidentDate" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-        </div>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Platform / Exchange <span class="text-red-500">*</span>
-          </label>
-          <input type="text" name="platform" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Cryptocurrencies Involved <span class="text-red-500">*</span>
-            </label>
-            <input type="text" name="cryptoType" placeholder="e.g., BTC, ETH" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-          </div>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              USD Value Lost <span class="text-red-500">*</span>
-            </label>
-            <input type="number" name="amountLost" step="0.01" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 3: Transaction Details (updated) -->
-      <div class="form-step hidden" data-step="3">
-        <p class="text-sm text-gray-500 mb-4">
-          We need exact transaction data to trace the flow of funds. If you don’t have your Transaction IDs, you can still proceed and we’ll generate a tracking reference for you.
-        </p>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Your Wallet Address <span class="text-red-500">*</span>
-          </label>
-          <input type="text" name="yourWallet" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-        </div>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Blockchain Network <span class="text-red-500">*</span>
-          </label>
-          <input type="text" name="network" placeholder="e.g., Ethereum, BSC, Solana" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-        </div>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Transaction ID(s) (comma-separated)
-          </label>
-          <textarea name="txids" rows="2" placeholder="e.g., 0x1234…, 0xabcd…" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"></textarea>
-        </div>
-      </div>
-
-      <!-- Step 4: Scam Mechanism -->
-      <div class="form-step hidden" data-step="4">
-        <p class="text-sm text-gray-500 mb-4">
-          Describe exactly how you were defrauded—phishing site, social engineering, false investment, etc.
-        </p>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Scam Description <span class="text-red-500">*</span>
-          </label>
-          <textarea name="scamDescription" rows="5" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"></textarea>
-        </div>
-        <div class="flex items-center mt-2 space-x-2">
-          <input type="checkbox" id="fakeSite" name="fakeSite" class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"/>
-          <label for="fakeSite" class="text-gray-700">Phishing/fake website used</label>
-        </div>
-        <div class="flex items-center mt-2 space-x-2">
-          <input type="checkbox" id="socialEng" name="socialEng" class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"/>
-          <label for="socialEng" class="text-gray-700">Social engineering tactics</label>
-        </div>
-      </div>
-
-      <!-- Step 5: Evidence Uploads -->
-      <div class="form-step hidden" data-step="5">
-        <p class="text-sm text-gray-500 mb-4">
-          Upload all relevant evidence. Larger files? Use the shared-link field below.
-        </p>
-        <div class="space-y-4">
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Screenshots / PDF Evidence <span class="text-red-500">*</span>
-            </label>
-            <input type="file" name="evidenceFiles" accept="image/*,.pdf" required class="w-full"/>
-          </div>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Blockchain Statement <span class="text-red-500">*</span>
-            </label>
-            <input type="file" name="blockchainStmt" accept=".csv,.pdf" required class="w-full"/>
-            <p class="text-xs text-blue-600 mt-1">
-              Don’t have one?
-              <a href="https://example.com/get-statement" target="_blank" class="underline">
-                Get your blockchain statement here
-              </a>.
-            </p>
-          </div>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Shared Link for Large Files (Dropbox/Drive)
-            </label>
-            <input type="url" name="sharedLink" placeholder="https://drive.google.com/..." class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 6: Attempts & Reporting -->
-      <div class="form-step hidden" data-step="6">
-        <p class="text-sm text-gray-500 mb-4">
-          Let us know what steps you’ve already taken so we don’t duplicate efforts.
-        </p>
-        <div class="space-y-2">
-          <div class="flex items-center space-x-2">
-            <input type="checkbox" id="reportedLaw" name="reportedLaw" class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"/>
-            <label for="reportedLaw" class="text-gray-700">Reported to law enforcement</label>
-          </div>
-          <div class="flex items-center space-x-2">
-            <input type="checkbox" id="contactedExchange" name="contactedExchange" class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"/>
-            <label for="contactedExchange" class="text-gray-700">Contacted exchange/platform</label>
-          </div>
-          <div class="flex items-center space-x-2">
-            <input type="checkbox" id="fileComplaint" name="fileComplaint" class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"/>
-            <label for="fileComplaint" class="text-gray-700">Filed formal complaint</label>
-          </div>
-        </div>
-        <div class="mt-4">
-          <label class="block text-gray-700 font-semibold mb-1">
-            Case / Reference Number (if any)
-          </label>
-          <input type="text" name="caseNumber" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"/>
-        </div>
-      </div>
-
-      <!-- Step 7: Additional Info & Consent -->
-      <div class="form-step hidden" data-step="7">
-        <p class="text-sm text-gray-500 mb-4">
-          Final step: any extra details and your agreement to our terms.
-        </p>
-        <div>
-          <label class="block text-gray-700 font-semibold mb-1">
-            Additional Details / Comments
-          </label>
-          <textarea name="additionalInfo" rows="4" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"></textarea>
-        </div>
-        <div class="flex items-center mt-4 space-x-2">
-          <input type="checkbox" id="consent" name="consent" required class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"/>
-          <label for="consent" class="text-gray-700">
-            I agree to the
-            <a href="./terms.html" target="_blank" class="text-blue-600 underline">
-              terms & privacy policy
-            </a>
-            <span class="text-red-500">*</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Navigation Buttons -->
-      <div class="sticky bottom-4 flex justify-between bg-white p-4 shadow-inner rounded-xl border-t">
-        <button type="button" id="prevBtn"
-                class="px-6 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg disabled:opacity-50"
-                disabled>
-          ← Previous
-        </button>
-        <button type="button" id="nextBtn"
-                class="px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition">
-          Next →
-        </button>
-      </div>
-    </form>
-
-    <!-- Confirmation -->
-    <div id="confirmationMessage" class="hidden text-center py-16">
-      <div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg border border-blue-200 animate-fadeIn">
-        <div class="text-4xl text-green-500 mb-4">✅</div>
-        <h2 class="text-2xl font-bold text-gray-800 mb-2">Report Submitted Successfully</h2>
-        <p class="text-gray-600 mb-4">
-          Thank you for reporting your case. Our investigation team has received your submission and will contact you shortly.
-          Please check your inbox and spam folder.
-        </p>
-        <a href="/" class="inline-block mt-4 px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg">
-          Return to Home
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Inside your <script> tag at bottom -->
-<script>
-  const steps = Array.from(document.querySelectorAll('.form-step'));
-  const progressBar = document.getElementById('progressBar');
-  const progressText = document.getElementById('progressText');
-  const form = document.getElementById('recoveryForm');
-  const confirmationMessage = document.getElementById('confirmationMessage');
-  const nextBtn = document.getElementById('nextBtn');
-  const prevBtn = document.getElementById('prevBtn');
-
-  let currentStep = 1, totalSteps = steps.length;
-
-  function updateStepDisplay() {
-    steps.forEach((step, i) => {
-      step.classList.toggle('hidden', i !== currentStep - 1);
-    });
-    progressBar.style.width = `${(currentStep / totalSteps) * 100}%`;
-    progressText.textContent = `Step ${currentStep} of ${totalSteps}`;
-    prevBtn.disabled = currentStep === 1;
-    nextBtn.textContent = (currentStep === totalSteps ? 'Submit' : 'Next →');
-  }
-
-  function validateStep(stepIndex) {
-    const requiredFields = steps[stepIndex].querySelectorAll('[required]');
-    for (let field of requiredFields) {
-      if ((field.type === 'checkbox' && !field.checked) || !field.value.trim()) {
-        field.classList.add('border-red-500');
-        field.scrollIntoView({ behavior: 'smooth' });
-        return false;
-      } else {
-        field.classList.remove('border-red-500');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Recovery Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
-    }
-    return true;
-  }
+      .animate-fadeIn {
+        animation: fadeIn 0.4s ease-in-out;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen flex items-center justify-center p-4"
+  >
+    <div
+      class="bg-white shadow-2xl rounded-xl w-full max-w-4xl p-6 sm:p-10 relative"
+    >
+      <!-- Header -->
+      <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold text-gray-800">Crypto Recovery Form</h1>
+        <p class="text-sm text-gray-500 mt-2">
+          Please complete the steps below to file your incident report.
+        </p>
+      </header>
 
-  nextBtn.addEventListener('click', async () => {
-    if (!validateStep(currentStep - 1)) return;
+      <!-- Progress Bar -->
+      <div class="flex items-center justify-between mb-8">
+        <div class="w-full bg-gray-200 h-2 rounded-full">
+          <div
+            id="progressBar"
+            class="h-2 bg-blue-600 rounded-full transition-all duration-300 w-1/7"
+          ></div>
+        </div>
+        <span
+          id="progressText"
+          class="ml-4 text-sm text-gray-600 font-medium whitespace-nowrap"
+        >
+          Step 1 of 8
+        </span>
+      </div>
 
-    if (currentStep === totalSteps) {
-      // show loading indicator
-      nextBtn.innerHTML = `<svg class="animate-spin h-5 w-5 mx-auto text-white" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/></svg>`;
-      nextBtn.disabled = true;
+      <!-- Form -->
+      <form id="recoveryForm" class="space-y-6" enctype="multipart/form-data">
+        <!-- Step 1: Personal Info -->
+        <div class="form-step" data-step="1">
+          <p class="text-sm text-gray-500 mb-4">
+            Let’s start with your contact details. Fields marked
+            <span class="text-red-500">*</span> are required.
+          </p>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Full Name <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="name"
+              required
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Email Address <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="email"
+              name="email"
+              required
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Country <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="country"
+              required
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+        </div>
 
-      const formData = new FormData(form);
+        <!-- Step 2: Incident Overview -->
+        <div class="form-step hidden" data-step="2">
+          <p class="text-sm text-gray-500 mb-4">
+            Tell us the high-level incident details so we can prioritize your
+            case.
+          </p>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Date of Incident <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              name="incidentDate"
+              required
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Platform / Exchange <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="platform"
+              required
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Cryptocurrencies Involved <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="cryptoType"
+                placeholder="e.g., BTC, ETH"
+                required
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                USD Value Lost <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                name="amountLost"
+                step="0.01"
+                required
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+          </div>
+        </div>
 
-      // Ensure unchecked checkboxes are included as false
-      ['fakeSite', 'socialEng', 'reportedLaw', 'contactedExchange', 'fileComplaint', 'consent'].forEach(id => {
-        if (!form.querySelector(`#${id}`).checked) {
-          formData.append(id, 'false');
+        <!-- Step 3: Transaction Details (updated) -->
+        <div class="form-step hidden" data-step="3">
+          <p class="text-sm text-gray-500 mb-4">
+            We need exact transaction data to trace the flow of funds. If you
+            don’t have your Transaction IDs, you can still proceed and we’ll
+            generate a tracking reference for you.
+          </p>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Your Wallet Address <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="yourWallet"
+              required
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Blockchain Network <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="network"
+              placeholder="e.g., Ethereum, BSC, Solana"
+              required
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Transaction ID(s) (comma-separated)
+            </label>
+            <textarea
+              name="txids"
+              rows="2"
+              placeholder="e.g., 0x1234…, 0xabcd…"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Step 4: Scam Mechanism -->
+        <div class="form-step hidden" data-step="4">
+          <p class="text-sm text-gray-500 mb-4">
+            Describe exactly how you were defrauded—phishing site, social
+            engineering, false investment, etc.
+          </p>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Scam Description <span class="text-red-500">*</span>
+            </label>
+            <textarea
+              name="scamDescription"
+              rows="5"
+              required
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            ></textarea>
+          </div>
+          <div class="flex items-center mt-2 space-x-2">
+            <input
+              type="checkbox"
+              id="fakeSite"
+              name="fakeSite"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+            />
+            <label for="fakeSite" class="text-gray-700"
+              >Phishing/fake website used</label
+            >
+          </div>
+          <div class="flex items-center mt-2 space-x-2">
+            <input
+              type="checkbox"
+              id="socialEng"
+              name="socialEng"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+            />
+            <label for="socialEng" class="text-gray-700"
+              >Social engineering tactics</label
+            >
+          </div>
+        </div>
+
+        <!-- Step 5: Evidence Uploads -->
+        <div class="form-step hidden" data-step="5">
+          <p class="text-sm text-gray-500 mb-4">
+            Upload all relevant evidence. Larger files? Use the shared-link
+            field below.
+          </p>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Screenshots / PDF Evidence <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="file"
+                name="evidenceFiles"
+                accept="image/*,.pdf"
+                required
+                class="w-full"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Blockchain Statement <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="file"
+                name="blockchainStmt"
+                accept=".csv,.pdf"
+                required
+                class="w-full"
+              />
+              <p class="text-xs text-blue-600 mt-1">
+                Don’t have one?
+                <a
+                  href="https://forms.gle/dTAgaPAqXgTho3w57"
+                  target="_blank"
+                  class="underline"
+                >
+                  Get your blockchain statement here </a
+                >.
+              </p>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Shared Link for Large Files (Dropbox/Drive)
+              </label>
+              <input
+                type="url"
+                name="sharedLink"
+                placeholder="https://drive.google.com/..."
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Attempts & Reporting -->
+        <div class="form-step hidden" data-step="6">
+          <p class="text-sm text-gray-500 mb-4">
+            Let us know what steps you’ve already taken so we don’t duplicate
+            efforts.
+          </p>
+          <div class="space-y-2">
+            <div class="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="reportedLaw"
+                name="reportedLaw"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+              />
+              <label for="reportedLaw" class="text-gray-700"
+                >Reported to law enforcement</label
+              >
+            </div>
+            <div class="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="contactedExchange"
+                name="contactedExchange"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+              />
+              <label for="contactedExchange" class="text-gray-700"
+                >Contacted exchange/platform</label
+              >
+            </div>
+            <div class="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="fileComplaint"
+                name="fileComplaint"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+              />
+              <label for="fileComplaint" class="text-gray-700"
+                >Filed formal complaint</label
+              >
+            </div>
+          </div>
+          <div class="mt-4">
+            <label class="block text-gray-700 font-semibold mb-1">
+              Case / Reference Number (if any)
+            </label>
+            <input
+              type="text"
+              name="caseNumber"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+        </div>
+
+        <!-- Step 7: Additional Info & Consent -->
+        <div class="form-step hidden" data-step="7">
+          <p class="text-sm text-gray-500 mb-4">
+            Final step: any extra details and your agreement to our terms.
+          </p>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Additional Details / Comments
+            </label>
+            <textarea
+              name="additionalInfo"
+              rows="4"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            ></textarea>
+          </div>
+          <div class="flex items-center mt-4 space-x-2">
+            <input
+              type="checkbox"
+              id="consent"
+              name="consent"
+              required
+              class="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+            />
+            <label for="consent" class="text-gray-700">
+              I agree to the
+              <a
+                href="./terms.html"
+                target="_blank"
+                class="text-blue-600 underline"
+              >
+                terms & privacy policy
+              </a>
+              <span class="text-red-500">*</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 8: Payment & Receipt Upload -->
+        <div class="form-step hidden" data-step="8">
+          <p class="text-sm text-gray-500 mb-4">
+            To complete your submission, please pay the required fee of (2 USDT)
+            to the wallet address below and upload your payment receipt.
+          </p>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-1">
+              USDT (TRC20) Wallet Address
+            </label>
+            <div class="bg-gray-100 p-3 rounded-lg font-mono select-all mb-2">
+              TJ6dfJ6qcNpBZYJPsWmYUpKjz1GLYTPDVb
+            </div>
+            <p class="text-xs text-gray-500 mb-4">
+              Send your payment and upload a screenshot or PDF of your
+              transaction receipt below.
+            </p>
+            <label class="block text-gray-700 font-semibold mb-1">
+              Payment Receipt <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="file"
+              name="paymentReceipt"
+              accept="image/*,.pdf"
+              required
+              class="w-full"
+            />
+            <label class="block text-gray-700 font-semibold mb-1 mt-4">
+              Payment Transaction ID <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="paymentTxid"
+              required
+              placeholder="Enter your payment transaction ID"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div
+          class="sticky bottom-4 flex justify-between bg-white p-4 shadow-inner rounded-xl border-t"
+        >
+          <button
+            type="button"
+            id="prevBtn"
+            class="px-6 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg disabled:opacity-50"
+            disabled
+          >
+            ← Previous
+          </button>
+          <button
+            type="button"
+            id="nextBtn"
+            class="px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition"
+          >
+            Next →
+          </button>
+        </div>
+      </form>
+
+      <!-- Confirmation -->
+      <div id="confirmationMessage" class="hidden text-center py-16">
+        <div
+          class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg border border-blue-200 animate-fadeIn"
+        >
+          <div class="text-4xl text-green-500 mb-4">✅</div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">
+            Report Submitted Successfully
+          </h2>
+          <p class="text-gray-600 mb-4">
+            Thank you for reporting your case. Our investigation team has
+            received your submission and will contact you shortly. Please check
+            your inbox and spam folder.
+          </p>
+          <a
+            href="/"
+            class="inline-block mt-4 px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg"
+          >
+            Return to Home
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inside your <script> tag at bottom -->
+    <script>
+      const steps = Array.from(document.querySelectorAll(".form-step"));
+      const progressBar = document.getElementById("progressBar");
+      const progressText = document.getElementById("progressText");
+      const form = document.getElementById("recoveryForm");
+      const confirmationMessage = document.getElementById(
+        "confirmationMessage"
+      );
+      const nextBtn = document.getElementById("nextBtn");
+      const prevBtn = document.getElementById("prevBtn");
+      const MAX_FILE_SIZE_MB = 10;
+      const ALLOWED_EVIDENCE_TYPES = [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+        "application/pdf",
+      ];
+      const ALLOWED_STATEMENT_TYPES = ["application/pdf", "text/csv"];
+      const ALLOWED_RECEIPT_TYPES = ALLOWED_EVIDENCE_TYPES; // reuse
+
+      let currentStep = 1,
+        totalSteps = steps.length; // This will now be 8
+
+      // Helper to show error messages
+      function showError(field, message) {
+        let error = field.parentNode.querySelector(".form-error");
+        if (!error) {
+          error = document.createElement("div");
+          error.className = "form-error text-red-600 text-xs mt-1";
+          error.setAttribute("aria-live", "polite");
+          field.parentNode.appendChild(error);
+        }
+        error.textContent = message;
+        field.classList.add("border-red-500");
+      }
+
+      function clearError(field) {
+        let error = field.parentNode.querySelector(".form-error");
+        if (error) error.remove();
+        field.classList.remove("border-red-500");
+      }
+
+      // File validation
+      function validateFileInput(input, allowedTypes) {
+        clearError(input);
+        if (!input.files.length) return true;
+        const file = input.files[0];
+        if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+          showError(input, `File too large (max ${MAX_FILE_SIZE_MB}MB)`);
+          return false;
+        }
+        if (!allowedTypes.includes(file.type)) {
+          showError(input, "Invalid file type");
+          return false;
+        }
+        return true;
+      }
+
+      function updateStepDisplay() {
+        steps.forEach((step, i) => {
+          step.classList.toggle("hidden", i !== currentStep - 1);
+        });
+        progressBar.style.width = `${(currentStep / totalSteps) * 100}%`;
+        progressText.textContent = `Step ${currentStep} of ${totalSteps}`;
+        prevBtn.disabled = currentStep === 1;
+        nextBtn.textContent = currentStep === totalSteps ? "Submit" : "Next →";
+        nextBtn.disabled = false;
+      }
+
+      function validateStep(stepIndex) {
+        let valid = true;
+        const requiredFields = steps[stepIndex].querySelectorAll("[required]");
+        for (let field of requiredFields) {
+          clearError(field);
+          if (
+            (field.type === "checkbox" && !field.checked) ||
+            !field.value.trim()
+          ) {
+            showError(field, "This field is required");
+            field.scrollIntoView({ behavior: "smooth", block: "center" });
+            valid = false;
+          }
+        }
+        // File validation for step 5
+        if (steps[stepIndex].dataset.step == "5") {
+          const evidenceInput = form.querySelector(
+            'input[name="evidenceFiles"]'
+          );
+          const stmtInput = form.querySelector('input[name="blockchainStmt"]');
+          if (!validateFileInput(evidenceInput, ALLOWED_EVIDENCE_TYPES))
+            valid = false;
+          if (!validateFileInput(stmtInput, ALLOWED_STATEMENT_TYPES))
+            valid = false;
+        }
+        // File validation for step 8 (payment receipt)
+        if (steps[stepIndex].dataset.step == "8") {
+          const receiptInput = form.querySelector(
+            'input[name="paymentReceipt"]'
+          );
+          if (!validateFileInput(receiptInput, ALLOWED_RECEIPT_TYPES))
+            valid = false;
+        }
+        return valid;
+      }
+
+      nextBtn.addEventListener("click", async () => {
+        if (!validateStep(currentStep - 1)) return;
+
+        if (currentStep === totalSteps) {
+          nextBtn.innerHTML = `<svg class="animate-spin h-5 w-5 mx-auto text-white" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/></svg>`;
+          nextBtn.disabled = true;
+          prevBtn.disabled = true;
+
+          const formData = new FormData(form);
+
+          // Ensure unchecked checkboxes are included as false
+          [
+            "fakeSite",
+            "socialEng",
+            "reportedLaw",
+            "contactedExchange",
+            "fileComplaint",
+            "consent",
+          ].forEach((id) => {
+            if (!form.querySelector(`#${id}`).checked) {
+              formData.set(id, "false");
+            }
+          });
+
+          try {
+            const res = await fetch("/api/recover", {
+              method: "POST",
+              body: formData,
+            });
+
+            if (!res.ok) {
+              let msg = "Submission failed";
+              try {
+                const data = await res.json();
+                msg = data.error || msg;
+              } catch {
+                /* ignore */
+              }
+              throw new Error(msg);
+            }
+
+            form.classList.add("hidden");
+            confirmationMessage.classList.remove("hidden");
+          } catch (error) {
+            alert("❌ " + error.message);
+            nextBtn.innerHTML = "Submit";
+            nextBtn.disabled = false;
+            prevBtn.disabled = false;
+          }
+          return;
+        }
+
+        currentStep++;
+        updateStepDisplay();
+      });
+
+      prevBtn.addEventListener("click", () => {
+        if (currentStep > 1) {
+          currentStep--;
+          updateStepDisplay();
         }
       });
 
-      try {
-        const res = await fetch('/api/recover', {
-          method: 'POST',
-          body: formData
-        });
+      // Remove error on input
+      form.addEventListener("input", (e) => {
+        if (e.target.matches('[required], input[type="file"]'))
+          clearError(e.target);
+      });
 
-        if (!res.ok) throw new Error(await res.text());
-
-        form.classList.add('hidden');
-        confirmationMessage.classList.remove('hidden');
-      } catch (error) {
-        alert('❌ Submission failed: ' + error.message);
-        nextBtn.innerHTML = 'Submit';
-        nextBtn.disabled = false;
-      }
-      return;
-    }
-
-    currentStep++;
-    updateStepDisplay();
-  });
-
-  prevBtn.addEventListener('click', () => {
-    if (currentStep > 1) {
-      currentStep--;
       updateStepDisplay();
-    }
-  });
-
-  updateStepDisplay();
-</script>
-</body>
+    </script>
+  </body>
 </html>
