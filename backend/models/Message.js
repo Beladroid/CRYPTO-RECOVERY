@@ -14,8 +14,6 @@ const messageSchema = new mongoose.Schema({
   lossSummary: { type: String, required: true },
 
   // Step 3: Transaction Details
-  yourWallet: { type: String, required: true },
-  network: { type: String, required: true },
   txids: { type: String }, // optional
 
   // Step 4: Scam Mechanism

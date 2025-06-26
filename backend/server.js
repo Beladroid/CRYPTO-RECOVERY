@@ -50,8 +50,6 @@ app.post(
         platform: req.body.platform,
         cryptoType: req.body.cryptoType,
         lossSummary: req.body.lossSummary,
-        yourWallet: req.body.yourWallet,
-        network: req.body.network,
         txids: req.body.txids || "",
         scamDescription: req.body.scamDescription,
         fakeSite: parseBool(req.body.fakeSite),
