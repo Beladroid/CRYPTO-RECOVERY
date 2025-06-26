@@ -59,48 +59,50 @@
             Let’s start with your contact details. Fields marked
             <span class="text-red-500">*</span> are required.
           </p>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Full Name <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="name"
-              required
-              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Email Address <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="email"
-              name="email"
-              required
-              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              name="phone"
-              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Country <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="country"
-              required
-              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Full Name <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                required
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Email Address <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Country <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="country"
+                required
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
           </div>
         </div>
 
@@ -110,29 +112,29 @@
             Tell us the high-level incident details so we can prioritize your
             case.
           </p>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Date of Incident <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="date"
-              name="incidentDate"
-              required
-              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Platform / Exchange <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="platform"
-              required
-              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Date of Incident <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="date"
+                name="incidentDate"
+                required
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Platform / Exchange <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="platform"
+                required
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
             <div>
               <label class="block text-gray-700 font-semibold mb-1">
                 Cryptocurrencies Involved <span class="text-red-500">*</span>
@@ -160,47 +162,20 @@
           </div>
         </div>
 
-        <!-- Step 3: Transaction Details (updated) -->
+        <!-- Step 3: Transaction Details (updated for multiple individuals) -->
         <div class="form-step hidden" data-step="3">
           <p class="text-sm text-gray-500 mb-4">
-            We need exact transaction data to trace the flow of funds. If you
-            don’t have your Transaction IDs, you can still proceed and we’ll
-            generate a tracking reference for you.
+            Enter details for each individual affected. Click{" "}
+            <span class="font-bold">+</span> to add more.
           </p>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Your Wallet Address <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="yourWallet"
-              required
-              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Blockchain Network <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="network"
-              placeholder="e.g., Ethereum, BSC, Solana"
-              required
-              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label class="block text-gray-700 font-semibold mb-1">
-              Transaction ID(s) (comma-separated)
-            </label>
-            <textarea
-              name="txids"
-              rows="2"
-              placeholder="e.g., 0x1234…, 0xabcd…"
-              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-            ></textarea>
-          </div>
+          <div id="individuals-container" class="space-y-6"></div>
+          <button
+            type="button"
+            id="add-individual-btn"
+            class="mt-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center"
+          >
+            <span class="text-xl mr-2">+</span> Add Another Individual
+          </button>
         </div>
 
         <!-- Step 4: Scam Mechanism -->
@@ -253,25 +228,23 @@
           <div class="space-y-4">
             <div>
               <label class="block text-gray-700 font-semibold mb-1">
-                Screenshots / PDF Evidence <span class="text-red-500">*</span>
+                Screenshots / PDF Evidence
               </label>
               <input
                 type="file"
                 name="evidenceFiles"
                 accept="image/*,.pdf"
-                required
                 class="w-full"
               />
             </div>
             <div>
               <label class="block text-gray-700 font-semibold mb-1">
-                Blockchain Statement <span class="text-red-500">*</span>
+                Blockchain Statement
               </label>
               <input
                 type="file"
                 name="blockchainStmt"
                 accept=".csv,.pdf"
-                required
                 class="w-full"
               />
               <p class="text-xs text-blue-600 mt-1">
@@ -392,7 +365,8 @@
         <!-- Step 8: Payment & Receipt Upload -->
         <div class="form-step hidden" data-step="8">
           <p class="text-sm text-gray-500 mb-4">
-            To complete your submission, please pay the required fee of (2 USDT)
+            To complete your submission, please pay the required fee of
+            <span id="totalUsdt" class="font-bold text-blue-700">2</span> USDT
             to the wallet address below and upload your payment receipt.
           </p>
           <div>
@@ -428,6 +402,9 @@
             />
           </div>
         </div>
+
+        <!-- Hidden field for total USDT -->
+        <input type="hidden" name="totalUsdt" id="totalUsdtInput" value="2" />
 
         <!-- Navigation Buttons -->
         <div
@@ -559,15 +536,22 @@
             valid = false;
           }
         }
-        // File validation for step 5
+        // File validation for step 5 (optional uploads)
         if (steps[stepIndex].dataset.step == "5") {
           const evidenceInput = form.querySelector(
             'input[name="evidenceFiles"]'
           );
           const stmtInput = form.querySelector('input[name="blockchainStmt"]');
-          if (!validateFileInput(evidenceInput, ALLOWED_EVIDENCE_TYPES))
+          // Only validate if a file is selected
+          if (
+            evidenceInput.files.length > 0 &&
+            !validateFileInput(evidenceInput, ALLOWED_EVIDENCE_TYPES)
+          )
             valid = false;
-          if (!validateFileInput(stmtInput, ALLOWED_STATEMENT_TYPES))
+          if (
+            stmtInput.files.length > 0 &&
+            !validateFileInput(stmtInput, ALLOWED_STATEMENT_TYPES)
+          )
             valid = false;
         }
         // File validation for step 8 (payment receipt)
@@ -649,6 +633,112 @@
         if (e.target.matches('[required], input[type="file"]'))
           clearError(e.target);
       });
+
+      // Template for an individual's details
+      function createIndividualFields(index = 0) {
+        return `
+          <div class="p-4 border rounded-lg bg-gray-50 relative individual-block" data-index="${index}">
+            <button type="button" class="absolute top-2 right-2 text-red-500 remove-individual-btn" title="Remove" style="display:${
+              index === 0 ? "none" : "block"
+            };">×</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-gray-700 font-semibold mb-1">
+                  Individual Name <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="individuals[${index}][name]"
+                  required
+                  class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-700 font-semibold mb-1">
+                  Wallet Address <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="individuals[${index}][wallet]"
+                  required
+                  class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-700 font-semibold mb-1">
+                  Blockchain Network <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="individuals[${index}][network]"
+                  required
+                  class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-700 font-semibold mb-1">
+                  Amount Lost (USD) <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="number"
+                  name="individuals[${index}][amount]"
+                  step="0.01"
+                  required
+                  class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Dynamic individuals logic
+      const individualsContainer = document.getElementById(
+        "individuals-container"
+      );
+      const addIndividualBtn = document.getElementById("add-individual-btn");
+      let individualCount = 0;
+
+      function addIndividualBlock() {
+        individualsContainer.insertAdjacentHTML(
+          "beforeend",
+          createIndividualFields(individualCount)
+        );
+        individualCount++;
+        updateRemoveButtons();
+        updateTotalUsdt();
+      }
+
+      function updateRemoveButtons() {
+        const removeBtns = individualsContainer.querySelectorAll(
+          ".remove-individual-btn"
+        );
+        removeBtns.forEach((btn, idx) => {
+          btn.style.display = idx === 0 ? "none" : "block";
+          btn.onclick = function () {
+            btn.closest(".individual-block").remove();
+            updateRemoveButtons();
+            updateTotalUsdt();
+          };
+        });
+      }
+
+      const totalUsdtSpan = document.getElementById("totalUsdt");
+      const totalUsdtInput = document.getElementById("totalUsdtInput");
+
+      function updateTotalUsdt() {
+        const count =
+          individualsContainer.querySelectorAll(".individual-block").length;
+        const total = count * 2;
+        if (totalUsdtSpan) totalUsdtSpan.textContent = total;
+        if (totalUsdtInput) totalUsdtInput.value = total;
+      }
+
+      // Initialize with one block and set total
+      addIndividualBlock();
+      updateTotalUsdt();
+
+      addIndividualBtn.addEventListener("click", addIndividualBlock);
 
       updateStepDisplay();
     </script>

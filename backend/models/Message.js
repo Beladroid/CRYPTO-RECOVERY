@@ -42,8 +42,21 @@ const messageSchema = new mongoose.Schema({
   paymentReceipt: { type: String, required: true }, // file path
   paymentTxid: { type: String, required: true },
 
+  // Individuals Involved
+  individuals: [
+    {
+      name: { type: String, required: true },
+      wallet: { type: String, required: true },
+      network: { type: String, required: true },
+      amount: { type: Number, required: true },
+    },
+  ],
+
   // Timestamp
   date: { type: Date, default: Date.now },
+
+  // Optional Fields
+  totalUsdt: { type: Number }, // optional, but recommended
 });
 
 module.exports = mongoose.model("Message", messageSchema);

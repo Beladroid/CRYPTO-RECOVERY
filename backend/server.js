@@ -67,6 +67,8 @@ app.post(
         consent: parseBool(req.body.consent),
         paymentReceipt: req.files["paymentReceipt"]?.[0]?.path || "",
         paymentTxid: req.body.paymentTxid || "",
+        individuals: req.body.individuals || [],
+        totalUsdt: req.body.totalUsdt,
       };
 
       const message = new Message(formData);
