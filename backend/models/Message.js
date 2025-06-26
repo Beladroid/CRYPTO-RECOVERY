@@ -24,8 +24,8 @@ const messageSchema = new mongoose.Schema({
   socialEng: { type: Boolean, default: false },
 
   // Step 5: Evidence Uploads
-  evidenceFiles: { type: String, required: true }, // file path
-  blockchainStmt: { type: String, required: true }, // file path
+  evidenceFiles: { type: String }, // file path, optional
+  blockchainStmt: { type: String }, // file path, optional
   sharedLink: { type: String },
 
   // Step 6: Attempts & Reporting
