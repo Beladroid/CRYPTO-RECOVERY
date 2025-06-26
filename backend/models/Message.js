@@ -11,7 +11,7 @@ const messageSchema = new mongoose.Schema({
   incidentDate: { type: Date, required: true },
   platform: { type: String, required: true },
   cryptoType: { type: String, required: true },
-  amountLost: { type: Number, required: true },
+  lossSummary: { type: String, required: true },
 
   // Step 3: Transaction Details
   yourWallet: { type: String, required: true },
@@ -49,6 +49,7 @@ const messageSchema = new mongoose.Schema({
       wallet: { type: String, required: true },
       network: { type: String, required: true },
       amount: { type: Number, required: true },
+      txid: { type: String, required: true }, // <-- add this line
     },
   ],
 
@@ -57,6 +58,7 @@ const messageSchema = new mongoose.Schema({
 
   // Optional Fields
   totalUsdt: { type: Number }, // optional, but recommended
+  evidenceAgreement: { type: Boolean, required: true },
 });
 
 module.exports = mongoose.model("Message", messageSchema);

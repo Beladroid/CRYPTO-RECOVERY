@@ -49,7 +49,7 @@ app.post(
         incidentDate: req.body.incidentDate,
         platform: req.body.platform,
         cryptoType: req.body.cryptoType,
-        amountLost: parseFloat(req.body.amountLost),
+        lossSummary: req.body.lossSummary,
         yourWallet: req.body.yourWallet,
         network: req.body.network,
         txids: req.body.txids || "",
@@ -69,6 +69,7 @@ app.post(
         paymentTxid: req.body.paymentTxid || "",
         individuals: req.body.individuals || [],
         totalUsdt: req.body.totalUsdt,
+        evidenceAgreement: parseBool(req.body.evidenceAgreement),
       };
 
       const message = new Message(formData);
