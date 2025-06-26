@@ -147,18 +147,18 @@
                 class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
               />
             </div>
-              <div>
-                <label class="block text-gray-700 font-semibold mb-1">
-                  Brief Summary of Loss <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="lossSummary"
-                  placeholder="e.g., Lost funds from phishing scam on XYZ platform"
-                  required
-                  class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-                />
-              </div>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1">
+                Brief Summary of Loss <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="lossSummary"
+                placeholder="e.g., Lost funds from phishing scam on XYZ platform"
+                required
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
           </div>
         </div>
 
@@ -386,10 +386,26 @@
           </p>
           <div>
             <label class="block text-gray-700 font-semibold mb-1">
-              USDT (TRC20) Wallet Address
+              USDT Wallet Address <span class="text-red-500">*</span>
             </label>
-            <div class="bg-gray-100 p-3 rounded-lg font-mono select-all mb-2">
-              TJ6dfJ6qcNpBZYJPsWmYUpKjz1GLYTPDVb
+            <div class="flex items-center space-x-2 mb-2">
+              <div
+                class="bg-gray-100 p-3 rounded-lg font-mono select-all flex-1"
+                id="usdtAddressBox"
+              >
+                TJ6dfJ6qcNpBZYJPsWmYUpKjz1GLYTPDVb
+              </div>
+              <button
+                type="button"
+                id="copyAddressBtn"
+                class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                aria-label="Copy wallet address"
+              >
+                Copy
+              </button>
+            </div>
+            <div class="text-xs text-gray-600 mb-4">
+              Network: <span class="font-semibold text-blue-700">TRC20</span>
             </div>
             <p class="text-xs text-gray-500 mb-4">
               Send your payment and upload a screenshot or PDF of your
@@ -768,6 +784,19 @@
       addIndividualBtn.addEventListener("click", addIndividualBlock);
 
       updateStepDisplay();
+
+      // Copy address button logic
+      const copyBtn = document.getElementById("copyAddressBtn");
+      const addressBox = document.getElementById("usdtAddressBox");
+      if (copyBtn && addressBox) {
+        copyBtn.addEventListener("click", () => {
+          const address = addressBox.textContent.trim();
+          navigator.clipboard.writeText(address).then(() => {
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+          });
+        });
+      }
     </script>
   </body>
 </html>
